@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using keepr.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MySql.Data.MySqlClient;
 
 namespace keepr
 {
     public class Startup
     {
+        private readonly string _connectionString;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -47,12 +52,19 @@ namespace keepr
                     .AllowCredentials();
                 });
             });
-            
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            services.AddMvc();
             services.AddTransient<IDbConnection>(x => CreateDbContext());
             services.AddTransient<UserRepository>();
             services.AddTransient<PostRepository>();
         }
+
+        private IDbConnection CreateDbContext()
+        {
+            var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+            return connection;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,15 +75,11 @@ namespace keepr
                 app.UseDeveloperExceptionPage();
                 app.UseCors("CorsDevPolicy");
             }
-            else
-            {
-                app.UseHsts();
-            }
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             
             app.UseAuthentication();
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
