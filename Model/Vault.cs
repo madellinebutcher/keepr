@@ -1,6 +1,6 @@
 namespace keepr.Models{
 
-public class Keep
+public class Vault
 {
 public int Id { get; set; }
 public string Name { get; set; }
