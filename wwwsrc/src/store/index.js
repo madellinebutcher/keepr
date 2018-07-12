@@ -4,6 +4,7 @@ import axios from 'axios'
 import router from '../router'
 // var production = !window.location.host.includes('localhost');
 // var baseUrl = production ? '//kanban-ramsey-maddy.herokuapp.com/' : '//localhost:3000/';
+var baseUrl = 'localhost:3000/'
 
 vue.use(vuex)
 
