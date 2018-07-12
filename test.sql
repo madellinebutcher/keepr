@@ -11,9 +11,9 @@
 --     id int NOT NULL AUTO_INCREMENT,
 --     name VARCHAR(20) NOT NULL,
 --     description VARCHAR(255) NOT NULL,
---     userId VARCHAR(20),
---     INDEX userId (userId),
---     FOREIGN KEY (userId)
+--     authorId VARCHAR(255),
+--     INDEX authorId (authorId),
+--     FOREIGN KEY (authorId)
 --         REFERENCES users(id)
 --         ON DELETE CASCADE,  
 --     PRIMARY KEY (id)
@@ -23,9 +23,9 @@
 --     id int NOT NULL AUTO_INCREMENT,
 --     name VARCHAR(20) NOT NULL,
 --     description VARCHAR(255) NOT NULL,
---     userId VARCHAR(20),
---     INDEX userId (userId),
---     FOREIGN KEY (userId)
+--     authorId VARCHAR(255),
+--     INDEX authorId (authorId),
+--     FOREIGN KEY (authorId)
 --         REFERENCES users(id)
 --         ON DELETE CASCADE,  
 --     PRIMARY KEY (id)
@@ -48,16 +48,16 @@
 -- CREATE TABLE userfavs (
 --   id int NOT NULL AUTO_INCREMENT,
 --   postId int NOT NULL,
---   userId VARCHAR(255) NOT NULL,
+--   authorId VARCHAR(255) NOT NULL,
 
 --   PRIMARY KEY (id),
---   INDEX (userid),
+--   INDEX (authorid),
 
 --   FOREIGN KEY (postId)
 --     REFERENCES posts(id)
 --     ON DELETE CASCADE,
 
---   FOREIGN KEY (userId)
+--   FOREIGN KEY (authorId)
 --     REFERENCES users(id)
 --     ON DELETE CASCADE
 -- );
@@ -71,13 +71,13 @@
 --     id int NOT NULL AUTO_INCREMENT,
 --     vaultId int NOT NULL,
 --     keepId int NOT NULL,
---     userId VARCHAR(255) NOT NULL,
+--     authorId VARCHAR(255) NOT NULL,
 
 --     PRIMARY KEY (id),
 --     INDEX (vaultId, keepId),
---     INDEX (userId),
+--     INDEX (authorId),
 
---     FOREIGN KEY (userId)
+--     FOREIGN KEY (authorId)
 --         REFERENCES users(id)
 --         ON DELETE CASCADE,
 

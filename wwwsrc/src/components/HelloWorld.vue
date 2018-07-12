@@ -31,15 +31,37 @@
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  export default {
+    name: '',
+    mounted(){
+      this.$store.dispatch('authenticate')
+    },
+    data() {
+      return {
+        user: {
+          email: '',
+          displayName: '',
+          password: ''
+        }, 
+        showLogin: true
+      }
+    },
+    computed: {},
+    methods: {
+      login() {
+        this.$store.dispatch('login', this.user)
+      },
+      register() {
+        this.$store.dispatch('register', this.user)
+      },
+      toggle() {
+        this.showLogin = !this.showLogin
+      }
     }
   }
-}
+
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
