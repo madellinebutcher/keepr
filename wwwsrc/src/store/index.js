@@ -100,7 +100,8 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    register(userData) {
+    register({commit,dispatch}, userData) {
+      debugger
       auth.post('register', userData)
         .then(res => {
           console.log("Registration Successful")
