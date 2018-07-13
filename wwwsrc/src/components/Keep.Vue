@@ -34,35 +34,36 @@
             this.$store.dispatch('fetchKeeps')
         },
         props: {
-            // list: {
-            //     type: Array,
-            //     required: true
+            list: {
+                type: Array,
+                required: true
+            },
+            lists: {
+                type: Array,
+                required: true
+            }
+        },
+        computed: {
+            comments() {
+                return this.$store.state.comments
+            }
+        },
+        methods: {
+            deleteKeep(keep) {
+                this.$store.dispatch('deleteKeep', keep)
+            },
+            // createComment(task) {
+            //     this.comment.parentId = task._id
+            //     this.$store.dispatch('createComment', this.comment)
+            //     this.comment = { body: '', parentId: '' }
             // },
-            // lists: {
-            //     type: Array,
-            //     required: true
+            moveKeep(keep) {
+                keep.parentId = this.selected
+                this.$store.dispatch('moveKeep', keep)
+                this.selected = ''
+            }
         }
     }
-    // computed: {
-    //     // comments() {
-    //     //     return this.$store.state.comments
-    // }
-    methods: {
-        deleteTask(task) {
-            this.$store.dispatch('deleteTask', task)
-        },
-        createComment(task) {
-            this.comment.parentId = task._id
-            this.$store.dispatch('createComment', this.comment)
-            this.comment = { body: '', parentId: '' }
-        },
-        moveTask(task) {
-            task.parentId = this.selected
-            this.$store.dispatch('moveTask', task)
-            this.selected = ''
-        }
-    }
-
 </script>
 
 <style>

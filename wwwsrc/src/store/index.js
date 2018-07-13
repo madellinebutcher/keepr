@@ -181,43 +181,43 @@ export default new vuex.Store({
   //       })
   //   },
 
-  //   //////// TASKS //////////////////////////////////
-  //   fetchTasks({ commit, dispatch }) {
-  //     api.get('/api/tasks')
-  //       .then(res => {
-  //         commit('setTaskList', res.data)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   deleteTask({ commit, dispatch }, task) {
-  //     api.delete('/api/tasks/' + task._id, task)
-  //       .then(res => {
-  //         dispatch('fetchTasks', task.parentId)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   createTask({ commit, dispatch }, task) {
-  //     api.post('/api/tasks', task)
-  //       .then(res => {
-  //         dispatch('fetchTasks', task.parentId)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   moveTask({dispatch,commit}, task){
-  //     api.put('/api/tasks/'+task._id,task)
-  //       .then(res=>{
-  //         dispatch('fetchTasks', task.parentId)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
+    //////// KEEPS //////////////////////////////////
+    fetchKeeps({ commit, dispatch }) {
+      api.get('keeps')
+        .then(res => {
+          commit('setKeep', res.data)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    },
+    deleteKeep({ commit, dispatch }, keep) {
+      api.delete('keeps/' + keep._id, keep)
+        .then(res => {
+          dispatch('fetchKeeps', keep.parentId)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    },
+    // createTask({ commit, dispatch }, task) {
+    //   api.post('/api/tasks', task)
+    //     .then(res => {
+    //       dispatch('fetchTasks', task.parentId)
+    //     })
+    //     .catch(err=>{
+    //       console.log(err)
+    //     })
+    // },
+    moveKeep({dispatch,commit}, keep){
+      api.put('keeps/'+keep._id,keep)
+        .then(res=>{
+          dispatch('fetchKeeps', keep.parentId)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    }
     
   //   //////// COMMENTS //////////////////////////////////
   //   fetchComments({ commit, dispatch }) {
