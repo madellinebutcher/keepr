@@ -28,7 +28,7 @@
             }
         },
         components: {
-            keep
+            // keep
         },
         mounted() {
             this.$store.dispatch('fetchKeeps')
