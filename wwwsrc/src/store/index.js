@@ -6,6 +6,7 @@ import router from "../router"
 var production = !window.location.host.includes('localhost');
 var baseUrl = production ? '' : '//localhost:5000/';
 
+
 var api = axios.create({
   baseURL: baseUrl + 'api/',
   timeout: 3000,
@@ -19,27 +20,27 @@ var auth = axios.create({
 
 vue.use(vuex)
 
-// function createDictionary(arr) {
-//   var out = {}
-//   for (let i = 0; i < arr.length; i++) {
-//     const item = arr[i];
-//     if (!out[item.parentId]) {
-//       out[item.parentId] = []
-//       out[item.parentId].push(item)
-//     }
-//     else {
-//       out[item.parentId].push(item)
-//     }
-//   }
-//   return out
-// }
+function createDictionary(arr) {
+  var out = {}
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
+    if (!out[item.parentId]) {
+      out[item.parentId] = []
+      out[item.parentId].push(item)
+    }
+    else {
+      out[item.parentId].push(item)
+    }
+  }
+  return out
+}
 
 export default new vuex.Store({
   state: {
     user: {},
-    // boards: [],
-    // board: {},
-    // lists: {},
+    vaults: [],
+    vault: {},
+    keeps: {},
     // tasks: [],
     // taskList: {},
     // comments: {}
@@ -47,7 +48,7 @@ export default new vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user
-    }
+    },
     // deleteUser(state) {
     //   state.user = {}
     //   state.boards = []
@@ -56,16 +57,16 @@ export default new vuex.Store({
     //   state.taskList = {}
     //   state.comments={}
     // },
-    // setBoards(state, boards) {
-    //   state.boards = boards
-    // },
-    // setBoard(state, board) {
-    //   state.board = board
-    // },
-    // setLists(state, lists) {
-    //   state.lists = createDictionary(lists)
-    //   console.log(state.lists)
-    // },
+    setVaults(state, vaults) {
+      state.vaults = vaults
+    },
+    setVault(state, vault) {
+      state.vault = vault
+    },
+    setKeeps(state, keeps) {
+      state.keeps = createDictionary(keeps)
+      console.log(state.keeps)
+    }
     // setTaskList(state, tasks) {
     //   state.taskList = createDictionary(tasks)
     // },
@@ -118,38 +119,38 @@ export default new vuex.Store({
         .catch(res => {
           console.log(res)
         })
-    }
+    },
   
   //   //APP STUFF
 
-  //   //////// BOARDS //////////////////////////////////
-  //   fetchBoards({ commit, dispatch }, user) {
-  //     api.get('/api/boards', user)
-  //       .then(res => {
-  //         commit('setBoards', res.data)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   createBoard({ commit, dispatch, state }, title) {
-  //     api.post('/api/boards', title)
-  //       .then(res => {
-  //         dispatch('fetchBoards', state.user)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   deleteBoard({ commit, dispatch, state }, board) {
-  //     api.delete('/api/boards/' + board._id, board)
-  //       .then(res => {
-  //         dispatch('fetchBoards', state.user)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
+    //////// VAULTS //////////////////////////////////
+    fetchVaults({ commit, dispatch }, user) {
+      api.get('vaults', user)
+        .then(res => {
+          commit('setVaults', res.data)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    },
+    createVault({ commit, dispatch, state }, title) {
+      api.post('vaults', title)
+        .then(res => {
+          dispatch('fetchVaults', state.user)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    },
+    deleteVault({ commit, dispatch, state }, vault) {
+      api.delete('vaults/' + vault._id, vault)
+        .then(res => {
+          dispatch('fetchVaults', state.user)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    },
 
   //   ////////  LISTS //////////////////////////////////
   //   createList({ commit, dispatch }, list) {
