@@ -133,8 +133,8 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    createVault({ commit, dispatch, state }, title) {
-      api.post('vault', title)
+    createVault({ commit, dispatch, state }, vault) {
+      api.post('vault', vault)
         .then(res => {
           dispatch('fetchVaults', state.user)
         })
@@ -152,38 +152,10 @@ export default new vuex.Store({
         })
     },
 
-  // ///
-  //   createList({ commit, dispatch }, list) {
-  //     api.post('/api/lists', list)
-  //       .then(res => {
-  //         dispatch('fetchLists', list.parentId)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   fetchLists({ commit, dispatch }, boardId) {
-  //     api.get('/api/lists')
-  //       .then(res => {
-  //         commit('setLists', res.data)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   deleteList({ commit, dispatch }, list) {
-  //     api.delete('/api/lists/' + list._id, list)
-  //       .then(res => {
-  //         dispatch('fetchLists', list.parentId)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
 
     //////// KEEPS ///////
     fetchKeeps({ commit, dispatch }) {
-      api.get('keeps')
+      api.get('keep')
         .then(res => {
           commit('setKeep', res.data)
         })
@@ -192,7 +164,7 @@ export default new vuex.Store({
         })
     },
     deleteKeep({ commit, dispatch }, keep) {
-      api.delete('keeps/' + keep._id, keep)
+      api.delete('keep/' + keep._id, keep)
         .then(res => {
           dispatch('fetchKeeps', keep.parentId)
         })
@@ -210,7 +182,7 @@ export default new vuex.Store({
         })
     },
     moveKeep({dispatch,commit}, keep){
-      api.put('keeps/'+keep._id,keep)
+      api.put('keep/'+keep._id,keep)
         .then(res=>{
           dispatch('fetchKeeps', keep.parentId)
         })
@@ -219,33 +191,5 @@ export default new vuex.Store({
         })
     }
     
-  //   //////// COMMENTS //////////////////////////////////
-  //   fetchComments({ commit, dispatch }) {
-  //     api.get('/api/comments')
-  //       .then(res => {
-  //         commit('setComments', res.data)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   deleteComment({ commit, dispatch }, comment) {
-  //     api.delete('/api/comments/' + comment._id, comment)
-  //       .then(res => {
-  //         dispatch('fetchComments', comment.parentId)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   },
-  //   createComment({ commit, dispatch }, comment) {
-  //     api.post('/api/comments', comment)
-  //       .then(res => {
-  //         dispatch('fetchComments', comment.parentId)
-  //       })
-  //       .catch(err=>{
-  //         console.log(err)
-  //       })
-  //   }
   }
 })

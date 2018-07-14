@@ -7,7 +7,8 @@
         <h1>Hello {{user.username}}</h1>
         <hr>
         <form @submit.prevent="createVault">
-          <input type="text" name="title" v-model="title.title" placeholder="Vault Name">
+          <input type="text" name="title" v-model="vault.name" placeholder="Vault Name">
+          <input type="text" name="description" v-model="vault.description" placeholder="Description">
           <button type="submit">Create Vault</button>
         </form>
       </div>
@@ -25,8 +26,9 @@
     name: 'Home',
     data() {
       return {
-        title: {
-          title: ''
+        vault: {
+          name: '',
+          description:''
         }
       }
     },
@@ -46,8 +48,7 @@
     },
     methods: {
       createVault() {
-        this.$store.dispatch('createVault', this.title)
-        this.title = { title: '' }
+        this.$store.dispatch('createVault', this.vault)
       },
       vaultSection(vault) {
         this.$store.commit('setVault', vault)

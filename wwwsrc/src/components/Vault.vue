@@ -6,13 +6,13 @@
                 <button @click="toHome">Back to home</button>
             </div>
             <div class="col-12 justify-content-center">
-                <h1 class="vault-title">{{vault.title}}</h1>
+                <h1 class="vault-title">{{vault.name}}</h1>
                 
             </div>
         </div>
         <div class="row">
             <div v-for="keep in keeps[vault._id]" class="keep col-3 m-1">
-                <h2 class="keep-title">{{keep.title}}</h2>
+                <h2 class="keep-title">{{keep.name}}</h2>
                 <div class="row justify-content-center">
                     
                     <button @click="deleteKeep(keep)">Delete Keep?</button>
@@ -35,7 +35,7 @@
         data() {
             return {
                 keep: {
-                    title: '',
+                    name: '',
                     parentId: ''
                 }
             }
