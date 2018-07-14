@@ -125,7 +125,7 @@ export default new vuex.Store({
 
     //////// VAULTS /////////////
     fetchVaults({ commit, dispatch }, user) {
-      api.get('vaults', user)
+      api.get('vault', user)
         .then(res => {
           commit('setVaults', res.data)
         })
@@ -134,7 +134,7 @@ export default new vuex.Store({
         })
     },
     createVault({ commit, dispatch, state }, title) {
-      api.post('vaults', title)
+      api.post('vault', title)
         .then(res => {
           dispatch('fetchVaults', state.user)
         })
@@ -143,7 +143,7 @@ export default new vuex.Store({
         })
     },
     deleteVault({ commit, dispatch, state }, vault) {
-      api.delete('vaults/' + vault._id, vault)
+      api.delete('vault/' + vault._id, vault)
         .then(res => {
           dispatch('fetchVaults', state.user)
         })

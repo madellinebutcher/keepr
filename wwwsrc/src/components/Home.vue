@@ -31,9 +31,9 @@
       }
     },
     mounted() {
-      if (!this.$store.state.user._id) {
-        router.push({ name: 'Login' }) // this goes to a login.vue
-      }
+      // if (!this.$store.state.user._id) {
+      //   router.push({ name: 'Login' }) // this goes to a login.vue
+      // }
       this.$store.dispatch('fetchVaults', this.user)
     },
     computed: {
