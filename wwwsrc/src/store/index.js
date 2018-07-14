@@ -101,7 +101,6 @@ export default new vuex.Store({
         })
     },
     register({commit,dispatch}, userData) {
-      debugger
       auth.post('register', userData)
         .then(res => {
           console.log("Registration Successful")
@@ -112,7 +111,7 @@ export default new vuex.Store({
         })
     },
     authenticate({ commit }) {
-      api.get('authenticate')
+      auth.get('authenticate')
         .then(res => {
           commit('setUser', res.data)
           router.push({ name: 'Home' })
@@ -124,7 +123,7 @@ export default new vuex.Store({
   
   //   //APP STUFF
 
-    //////// VAULTS //////////////////////////////////
+    //////// VAULTS /////////////
     fetchVaults({ commit, dispatch }, user) {
       api.get('vaults', user)
         .then(res => {
@@ -153,7 +152,7 @@ export default new vuex.Store({
         })
     },
 
-  //   ////////  LISTS //////////////////////////////////
+  // ///
   //   createList({ commit, dispatch }, list) {
   //     api.post('/api/lists', list)
   //       .then(res => {
@@ -182,7 +181,7 @@ export default new vuex.Store({
   //       })
   //   },
 
-    //////// KEEPS //////////////////////////////////
+    //////// KEEPS ///////
     fetchKeeps({ commit, dispatch }) {
       api.get('keeps')
         .then(res => {
@@ -201,15 +200,15 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    // createTask({ commit, dispatch }, task) {
-    //   api.post('/api/tasks', task)
-    //     .then(res => {
-    //       dispatch('fetchTasks', task.parentId)
-    //     })
-    //     .catch(err=>{
-    //       console.log(err)
-    //     })
-    // },
+    createKeep({ commit, dispatch }, keep) {
+      api.post('keep', keep)
+        .then(res => {
+          dispatch('fetchKeeps', keep.parentId)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    },
     moveKeep({dispatch,commit}, keep){
       api.put('keeps/'+keep._id,keep)
         .then(res=>{
