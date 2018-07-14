@@ -59,6 +59,7 @@ namespace keepr.Repositories
       var i = _db.Execute(@"
       DELETE FROM posts
       WHERE id = @id
+      AND authorId = @authorId
       LIMIT 1;
       ", new { id });
       if (i > 0)

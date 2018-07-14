@@ -13,8 +13,8 @@
         </form>
       </div>
         <div v-for="vault in vaults" class="vaults">
-          <button @click="vaultSection(vault)">{{vault.title}}</button>
-          <button @click="deletVault(vault)">Delete vault</button>
+          <button @click="vaultSection(vault)">{{vault.name}}</button>
+          <button @click="deleteVault(vault)">Delete vault</button>
         </div>
     </div>
   </div>

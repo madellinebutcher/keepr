@@ -50,5 +50,17 @@ namespace keepr.Controllers
     {
       return _db.EditVault(id, newVault);
     }
+    //delete vault
+    [HttpDelete("{id}")]
+    [Authorize]
+    public string DeleteVault(int id)
+    {
+      var user = HttpContext.User.Identity.Name;
+      bool delete = _db.DeleteVault(id);
+      if(delete) {
+        return "Successfully Deleted!";
+      }
+      return "An Error Occurred!";
+    }
   }
 }
