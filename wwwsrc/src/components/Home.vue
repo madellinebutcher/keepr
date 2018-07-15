@@ -1,6 +1,6 @@
 <template>
   <div class="home container-fluid">
-    <div class="row">
+    <div class="row d-flex flex-wrap">
       <div class="col">
         <button @click="logout" v-if="user">Logout</button>
         <hr>
@@ -12,9 +12,11 @@
           <button type="submit">Create Vault</button>
         </form>
       </div>
+      <div class="col">
         <div v-for="vault in vaults" class="vaults">
           <button @click="vaultSection(vault)">{{vault.name}}</button>
           <button @click="deleteVault(vault)">Delete vault</button>
+        </div>
         </div>
     </div>
   </div>

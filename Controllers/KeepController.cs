@@ -40,7 +40,8 @@ namespace keepr.Controllers
     }
     //get post by author
     [HttpGet("author/{id}")]
-    public IEnumerable<Keep> GetByAuthorId(int id)
+    
+    public IEnumerable<Keep> GetByAuthorId(string id)
     {
       return _db.GetbyAuthorId(id);
     }
@@ -50,5 +51,19 @@ namespace keepr.Controllers
     {
       return _db.EditKeep(id, newKeep);
     }
+
+    //delete keep
+    [HttpDelete("{id}")]
+        [Authorize]
+        public string DeleteKeep(int id)
+        {
+            var user = HttpContext.User.Identity.Name;
+            bool delete = _db.DeleteKeep(id);
+            if (delete)
+            {
+                return "This Has Been Successfully Deleted!";
+            }
+            return "Error Occurred!";
+        }
   }
 }

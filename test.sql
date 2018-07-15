@@ -1,3 +1,6 @@
+
+
+
 -- CREATE TABLE users (
 --     id VARCHAR(255) NOT NULL,
 --     username VARCHAR(20) NOT NULL,
@@ -6,6 +9,7 @@
 --     PRIMARY KEY (id),
 --     UNIQUE KEY email (email)
 -- );
+
 
 -- CREATE TABLE vaults (
 --     id int NOT NULL AUTO_INCREMENT,
@@ -19,10 +23,16 @@
 --     PRIMARY KEY (id)
 -- );
 
+
+
 -- CREATE TABLE keeps (
 --     id int NOT NULL AUTO_INCREMENT,
 --     name VARCHAR(20) NOT NULL,
 --     description VARCHAR(255) NOT NULL,
+--     img VARCHAR (255) NOT NULL,
+--     views int,
+--     keeps int,
+--     privatepublic tinyint(1),
 --     authorId VARCHAR(255),
 --     INDEX authorId (authorId),
 --     FOREIGN KEY (authorId)
@@ -44,7 +54,7 @@
 --     REFERENCES users(id)
 -- );
 
-
+-- drop table if exists userfavs;
 -- CREATE TABLE userfavs (
 --   id int NOT NULL AUTO_INCREMENT,
 --   postId int NOT NULL,
@@ -65,7 +75,7 @@
 
 
 
-
+-- drop table if exists keeps;
 
 -- CREATE TABLE vaultkeeps (
 --     id int NOT NULL AUTO_INCREMENT,
