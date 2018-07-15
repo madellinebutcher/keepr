@@ -40,7 +40,7 @@ namespace keepr.Controllers
     }
     //get post by author
     [HttpGet("author/{id}")]
-    public IEnumerable<Vault> GetByAuthorId(int id)
+    public IEnumerable<Vault> GetByAuthorId(string id)
     {
       return _db.GetbyAuthorId(id);
     }

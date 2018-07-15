@@ -28,7 +28,7 @@ namespace keepr.Repositories
     //   return _db.Query<Vault>("SELECT * FROM vaults;");
     // }
     // GetbyAuthor
-    public IEnumerable<Vault> GetbyAuthorId(int id)
+    public IEnumerable<Vault> GetbyAuthorId(string id)
     {
       return _db.Query<Vault>("SELECT * FROM vaults WHERE authorId = @id;", new { id });
     }
@@ -59,7 +59,6 @@ namespace keepr.Repositories
       var i = _db.Execute(@"
       DELETE FROM vaults
       WHERE id = @id
-      AND authorId = @authorId
       LIMIT 1;
       ", new { id });
       if (i > 0)

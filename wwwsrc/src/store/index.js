@@ -49,14 +49,14 @@ export default new vuex.Store({
     setUser(state, user) {
       state.user = user
     },
-    // deleteUser(state) {
-    //   state.user = {}
-    //   state.boards = []
-    //   state.board = {}
-    //   state.lists = {},
-    //   state.taskList = {}
-    //   state.comments={}
-    // },
+    deleteUser(state) {
+      state.user = {}
+      state.vaults = []
+      state.vault = {}
+      state.keeps = []
+      // state.taskList = {}
+      // state.comments={}
+    },
     setVaults(state, vaults) {
       state.vaults = vaults
     },
@@ -76,19 +76,20 @@ export default new vuex.Store({
   actions: {
 
     //AUTH STUFF
-    login({ commit}, loginCredentials) {
+    login({ commit, dispatch}, loginCredentials) {
       auth.post('login', loginCredentials)
         .then(res => {
           console.log("successfully logged in!")
           console.log(res.data)
           commit('setUser', res.data)
           router.push({ name: 'Home' })
+          dispatch('fetchVaults', res.data)
         })
         .catch(err=>{
           console.log(err)
         })
     },
-    logout({ commit }) {
+    logout({ commit, dispatch }) {
       auth.delete('')
         .then(res => {
           console.log("Successfully logged out!")
@@ -99,7 +100,7 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    register({commit,dispatch}, userData) {
+    register({ commit, dispatch }, userData) {
       auth.post('register', userData)
         .then(res => {
           console.log("Registration Successful")
@@ -109,15 +110,15 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    authenticate({ commit }) {
+    authenticate({ commit, dispatch }) {
       auth.get('authenticate')
         .then(res => {
           commit('setUser', res.data)
           router.push({ name: 'Home' })
+          commit('setVaults', res.data)
+          dispatch('fetchVaults', res.data)
         })
-        .catch(res => {
-          console.log(res)
-        })
+
     },
   
   //   //APP STUFF
@@ -127,7 +128,7 @@ export default new vuex.Store({
       
       api.get('vault/author/' + user.id)
         .then(res => {
-          debugger
+          
           commit('setVaults', res.data)
         })
         .catch(err=>{
