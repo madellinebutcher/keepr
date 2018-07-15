@@ -98,3 +98,7 @@
 
 -- DELETE FROM vaults WHERE id = 2
 -- DELETE FROM users WHERE id = 1
+
+
+-- SELECT * FROM vaults 
+-- authorId = "1b767a4-b9fb-4f0a-9e1e-985ddfa4b59c";

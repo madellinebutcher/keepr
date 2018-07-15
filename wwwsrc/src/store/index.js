@@ -20,27 +20,27 @@ var auth = axios.create({
 
 vue.use(vuex)
 
-function createDictionary(arr) {
-  var out = {}
-  for (let i = 0; i < arr.length; i++) {
-    const item = arr[i];
-    if (!out[item.parentId]) {
-      out[item.parentId] = []
-      out[item.parentId].push(item)
-    }
-    else {
-      out[item.parentId].push(item)
-    }
-  }
-  return out
-}
+// function createDictionary(arr) {
+//   var out = {}
+//   for (let i = 0; i < arr.length; i++) {
+//     const item = arr[i];
+//     if (!out[item.parentId]) {
+//       out[item.parentId] = []
+//       out[item.parentId].push(item)
+//     }
+//     else {
+//       out[item.parentId].push(item)
+//     }
+//   }
+//   return out
+// }
 
 export default new vuex.Store({
   state: {
     user: {},
     vaults: [],
     vault: {},
-    keeps: {},
+    keeps: [],
     // tasks: [],
     // taskList: {},
     // comments: {}
@@ -64,8 +64,7 @@ export default new vuex.Store({
       state.vault = vault
     },
     setKeeps(state, keeps) {
-      state.keeps = createDictionary(keeps)
-      console.log(state.keeps)
+      state.keeps = keeps
     }
     // setTaskList(state, tasks) {
     //   state.taskList = createDictionary(tasks)
@@ -81,7 +80,7 @@ export default new vuex.Store({
       auth.post('login', loginCredentials)
         .then(res => {
           console.log("successfully logged in!")
-          console.log(res.data.data)
+          console.log(res.data)
           commit('setUser', res.data)
           router.push({ name: 'Home' })
         })
@@ -90,7 +89,7 @@ export default new vuex.Store({
         })
     },
     logout({ commit }) {
-      auth.delete('/logout')
+      auth.delete('')
         .then(res => {
           console.log("Successfully logged out!")
           commit('deleteUser')
@@ -124,9 +123,11 @@ export default new vuex.Store({
   //   //APP STUFF
 
     //////// VAULTS /////////////
-    fetchVaults({ commit, dispatch }, user) {
-      api.get('vault', user)
+    fetchVaults({ commit, dispatch, state }, user) {
+      
+      api.get('vault/author/' + user.id)
         .then(res => {
+          debugger
           commit('setVaults', res.data)
         })
         .catch(err=>{
@@ -143,7 +144,7 @@ export default new vuex.Store({
         })
     },
     deleteVault({ commit, dispatch, state }, vault) {
-      api.delete('vault/' + vault._id, vault)
+      api.delete('vault/' + vault.id, vault)
         .then(res => {
           dispatch('fetchVaults', state.user)
         })
@@ -164,7 +165,7 @@ export default new vuex.Store({
         })
     },
     deleteKeep({ commit, dispatch }, keep) {
-      api.delete('keep/' + keep._id, keep)
+      api.delete('keep/' + keep.id, keep)
         .then(res => {
           dispatch('fetchKeeps', keep.parentId)
         })

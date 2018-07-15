@@ -27,14 +27,14 @@ namespace keepr.Controllers
       return null;
     }
     //get all vaults
-    [HttpGet]
-    public IEnumerable<Vault> GetAll()
-    {
-      return _db.GetAll();
-    }
+    // [HttpGet]
+    // public IEnumerable<Vault> GetAll()
+    // {
+    //   return _db.GetAll();
+    // }
     //get post by id
     [HttpGet("{id}")]
-    public Vault GetById(int id)
+    public IEnumerable<Vault> GetById(int id)
     {
       return _db.GetbyVaultId(id);
     }

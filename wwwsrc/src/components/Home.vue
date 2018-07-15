@@ -28,7 +28,8 @@
       return {
         vault: {
           name: '',
-          description:''
+          description:'',
+          authorId:''
         }
       }
     },

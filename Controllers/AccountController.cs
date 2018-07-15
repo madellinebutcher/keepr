@@ -62,6 +62,14 @@ namespace keepr.Controllers
         }
 
         [Authorize]
+        [HttpDelete]
+        public async Task<string> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return "succesfully logged out";
+        }
+
+        [Authorize]
         [HttpPut]
         public UserReturnModel UpdateAccount([FromBody]UserReturnModel user)
         {
