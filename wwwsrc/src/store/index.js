@@ -40,7 +40,8 @@ export default new vuex.Store({
     user: {},
     vaults: [],
     vault: {},
-    keeps: [],
+    activeKeeps: [],
+    
     // tasks: [],
     // taskList: {},
     // comments: {}
@@ -53,7 +54,7 @@ export default new vuex.Store({
       state.user = {}
       state.vaults = []
       state.vault = {}
-      state.keeps = []
+      state.activeKeeps = []
       // state.taskList = {}
       // state.comments={}
     },
@@ -64,19 +65,14 @@ export default new vuex.Store({
       state.vault = vault
     },
     setKeeps(state, keeps) {
-      state.keeps = keeps
+      state.activeKeeps = keeps
     }
-    // setTaskList(state, tasks) {
-    //   state.taskList = createDictionary(tasks)
-    // },
-    // setComments(state, comments){
-    //   state.comments=createDictionary(comments)
-    // }
+
   },
   actions: {
 
     //AUTH STUFF
-    login({ commit, dispatch}, loginCredentials) {
+    login({ commit, dispatch }, loginCredentials) {
       auth.post('login', loginCredentials)
         .then(res => {
           console.log("successfully logged in!")
@@ -85,7 +81,7 @@ export default new vuex.Store({
           router.push({ name: 'Home' })
           dispatch('fetchVaults', res.data)
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
@@ -96,7 +92,7 @@ export default new vuex.Store({
           commit('deleteUser')
           router.push({ name: 'Login' })
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
@@ -104,9 +100,9 @@ export default new vuex.Store({
       auth.post('register', userData)
         .then(res => {
           console.log("Registration Successful")
-          router.push({ name: 'Login' }) 
+          router.push({ name: 'Login' })
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
@@ -120,18 +116,18 @@ export default new vuex.Store({
         })
 
     },
-  
-  //   //APP STUFF
+
+    //   //APP STUFF
 
     //////// VAULTS /////////////
     fetchVaults({ commit, dispatch, state }, user) {
-      
+
       api.get('vault/author/' + user.id)
         .then(res => {
-          
+
           commit('setVaults', res.data)
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
@@ -140,7 +136,7 @@ export default new vuex.Store({
         .then(res => {
           dispatch('fetchVaults', state.user)
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
@@ -149,7 +145,7 @@ export default new vuex.Store({
         .then(res => {
           dispatch('fetchVaults', state.user)
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
@@ -159,39 +155,52 @@ export default new vuex.Store({
     fetchKeeps({ commit, dispatch }) {
       api.get('keep')
         .then(res => {
-          commit('setKeep', res.data)
+          commit('setKeeps', res.data)
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
-    deleteKeep({ commit, dispatch }, keep) {
-      api.delete('keep/' + keep.id, keep)
-        .then(res => {
-          dispatch('fetchKeeps', keep.parentId)
-        })
-        .catch(err=>{
-          console.log(err)
-        })
-    },
+    // deleteKeep({ commit, dispatch }, keep) {
+    //   api.delete('keep/' + keep.id, keep)
+    //     .then(res => {
+    //       dispatch('fetchKeeps', keep.parentId)
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+    // },
     createKeep({ commit, dispatch }, keep) {
       api.post('keep', keep)
         .then(res => {
           dispatch('fetchKeeps', keep.parentId)
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
-    moveKeep({dispatch,commit}, keep){
-      api.put('keep/'+keep._id,keep)
-        .then(res=>{
+    moveKeep({ dispatch, commit }, keep) {
+      api.put('keep/' + keep._id, keep)
+        .then(res => {
           dispatch('fetchKeeps', keep.parentId)
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
+    },
+    viewKeep({ commit, dispatch, state }, keep) {
+      api.get('keep/' + keep.id, keep)
+        .then(res => {
+          commit('setActivekeep', res.data)
+        })
+    },
+    editKeep({ commit, dispatch }, keep) {
+      
+      api.put('keep/' + keep.id, keep)
+        .then(res => {
+          dispatch('fetchKeeps', keep.id)
+        })
     }
-    
+
   }
 })

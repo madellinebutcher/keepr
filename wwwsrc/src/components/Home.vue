@@ -12,13 +12,34 @@
           <button type="submit">Create Vault</button>
         </form>
       </div>
+    </div>
+    <div class="row d-flex flex-wrap">
+      <div class="col">
+        <form @submit.prevent="createKeep">
+          <input type="text" name="title" v-model="keep.name" placeholder="Keep Name">
+          <input type="text" name="description" v-model="keep.description" placeholder="Description">
+          <input type="text" name="img" v-model="keep.img" placeholder="Image">
+          <button type="submit">Create Keep</button>
+        </form>
+      </div>
+    </div>
+    <div class="row d-flex flex-wrap">
       <div class="col">
         <div v-for="vault in vaults" class="vaults">
           <button @click="vaultSection(vault)">{{vault.name}}</button>
           <button @click="deleteVault(vault)">Delete vault</button>
         </div>
-        </div>
+      </div>
     </div>
+    <div class="row d-flex flex-wrap">
+      <div class="col">
+        <div v-for="keep in keeps" class="keeps">
+          <button @click="keepSection(keep)">{{keep.name}}</button>
+          <button @click="editKeep(keep)">Edit Keep</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -30,15 +51,21 @@
       return {
         vault: {
           name: '',
-          description:'',
-          authorId:''
+          description: '',
+          authorId: ''
+        },
+        keep: {
+          name: '',
+          description: '',
+          img: '',
         }
       }
     },
     mounted() {
-      if(this.$store.state.user.id){
+      if (this.$store.state.user.id) {
         this.$store.dispatch('fetchVaults', this.$store.state.user)
       }
+      this.$store.dispatch('fetchKeeps')
     },
     computed: {
       user() {
@@ -46,6 +73,9 @@
       },
       vaults() {
         return this.$store.state.vaults
+      },
+      keeps() {
+        return this.$store.state.activeKeeps
       }
     },
     methods: {
@@ -56,12 +86,22 @@
         this.$store.commit('setVault', vault)
         router.push({ name: 'Vault' })
       },
+      keepSection(keep) {
+        this.$store.commit('setKeeps', keep)
+        router.push({ name: 'Keep' })
+      },
       logout() {
         this.$store.dispatch('logout')
         router.push({ name: 'Login' })
       },
       deleteVault(vault) {
         this.$store.dispatch('deleteVault', vault)
+      },
+      createKeep() {
+        this.$store.dispatch('createKeep', this.keep)
+      },
+      editKeep(keep) {
+        this.$store.dispatch('editKeep', keep)
       }
     }
   }
