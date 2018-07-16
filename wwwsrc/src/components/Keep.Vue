@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    // import comments from './Comments.vue'
+    import router from '../router'
     export default {
         name: 'Keeps',
         data() {

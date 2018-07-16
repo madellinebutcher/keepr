@@ -50,7 +50,7 @@
 <script>
   import router from '../router'
   export default {
-    name: 'Home',
+    name: 'Keep',
     data() {
       return {
         vault: {
