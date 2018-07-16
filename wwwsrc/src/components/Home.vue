@@ -18,7 +18,7 @@
         <form @submit.prevent="createKeep">
           <input type="text" name="title" v-model="keep.name" placeholder="Keep Name">
           <input type="text" name="description" v-model="keep.description" placeholder="Description">
-          <input type="text" name="img" v-model="keep.img" placeholder="Image">
+          <input type="url" name="img" v-model="keep.img" placeholder="Image">
           <button type="submit">Create Keep</button>
         </form>
       </div>
