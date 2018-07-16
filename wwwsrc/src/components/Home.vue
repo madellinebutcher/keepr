@@ -19,7 +19,7 @@
           <input type="text" name="title" v-model="keep.name" placeholder="Keep Name">
           <input type="text" name="description" v-model="keep.description" placeholder="Description">
           <input type="url" name="img" v-model="keep.img" placeholder="Image">
-          <button type="submit">Create Keep</button>
+          <button type="submit">Add Pokemon</button>
         </form>
       </div>
     </div>
@@ -27,15 +27,19 @@
       <div class="col">
         <div v-for="vault in vaults" class="vaults">
           <button @click="vaultSection(vault)">{{vault.name}}</button>
-          <button @click="deleteVault(vault)">Delete vault</button>
+          <button @click="deleteVault(vault)">Delete Vault</button>
         </div>
       </div>
     </div>
-    <div class="row d-flex flex-wrap">
-      <div class="col">
-        <div v-for="keep in keeps" class="keeps">
-          <button @click="keepSection(keep)">{{keep.name}}</button>
-          <button @click="editKeep(keep)">Edit Keep</button>
+    <div class="row ">
+      <div class="col-12 d-flex justify-content-between flex-wrap">
+        <div v-for="keep in keeps" :key="keep.id" class="keep card text-center">
+          <h3 class="card-title">{{keep.name}}</h3>
+          <img :src="keep.img" alt="">
+          <h3 class="card-text">{{keep.description}}</h3>
+          <h3 class="card-text">Views: {{keep.views}} Keeps:{{keep.keeps}}</h3>
+          <button @click="viewedKeep(keep)">View Pokemon</button>
+          <button @click="saveKeep(keep)">Save Pokemon</button>
         </div>
       </div>
     </div>
@@ -58,6 +62,8 @@
           name: '',
           description: '',
           img: '',
+          views: 0,
+          keeps: 0
         }
       }
     },
@@ -86,10 +92,6 @@
         this.$store.commit('setVault', vault)
         router.push({ name: 'Vault' })
       },
-      keepSection(keep) {
-        this.$store.commit('setKeeps', keep)
-        router.push({ name: 'Keep' })
-      },
       logout() {
         this.$store.dispatch('logout')
         router.push({ name: 'Login' })
@@ -100,8 +102,10 @@
       createKeep() {
         this.$store.dispatch('createKeep', this.keep)
       },
-      editKeep(keep) {
+      viewedKeep(keep) {
+        keep.views++
         this.$store.dispatch('editKeep', keep)
+        router.push({ name: 'Keep' })
       }
     }
   }
@@ -109,4 +113,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  img{
+    max-height: 25vh;
+    max-width: 25vw;
+  }
 </style>

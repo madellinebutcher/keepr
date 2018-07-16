@@ -191,14 +191,14 @@ export default new vuex.Store({
     viewKeep({ commit, dispatch, state }, keep) {
       api.get('keep/' + keep.id, keep)
         .then(res => {
-          commit('setActivekeep', res.data)
+          commit('setKeeps', res.data) //setactivekeep
+          //dispatch edit keep to increase view count
         })
     },
     editKeep({ commit, dispatch }, keep) {
-      
       api.put('keep/' + keep.id, keep)
         .then(res => {
-          dispatch('fetchKeeps', keep.id)
+          dispatch('fetchKeeps', keep)
         })
     }
 
