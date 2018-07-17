@@ -1,9 +1,9 @@
 <template>
     <div class="keep container-fluid">
-            
-        <div class="row d-flex justify-content-center flex-wrap">
-            <div class="col-12 d-flex justify-content-between flex-wrap">
-                <div v-for="keep in keeps" :key="keep.id" class="keep card text-center">
+        <hr>    
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 d-flex justify-content-center">
+                <div :key="keep.id" class="keep card text-center">
                     <h3 class="card-title">{{keep.name}}</h3>
                     <img :src="keep.img" alt="">
                     <h3 class="card-text">{{keep.description}}</h3>
@@ -13,7 +13,7 @@
                             <option disabled value=''>Select a Vault</option>
                             <option v-for="vault in vaults" :key="vault.id" :value="vault">{{vault.name}}</option>
                         </select>
-                        <button v-if="vault.name" class="btn btn-primary" @click="createKeep">Save Pokemon</button>
+                        <button v-if="vault.name" class="btn btn-primary" @click="createVaultKeep">Save Pokemon</button>
                     </form>
                 </div>
             </div>
@@ -34,34 +34,34 @@
 
 <script>
     import router from '../router'
-    import home from './Home.vue'
+    // import home from './Home.vue'
     export default {
         name: 'Keep',
         data() {
             return {
                 vault: {},
-                keep: {},
-                newKeep: {
-                    name: '',
-                    description: '',
-                    img: '',
-                    views: 0,
-                    keeps: 0
-                }
+                // keep: {},
+                // newKeep: {
+                //     name: '',
+                //     description: '',
+                //     img: '',
+                //     views: 0,
+                //     keeps: 0
+                // }
             }
         },
         components: {
-            home
+            // home
         },
         mounted() {
             // this.$store.dispatch('fetchKeeps')
         },
         props: {
-
+            
         },
         computed: {
-            keeps() {
-                return this.$store.state.activeKeeps
+            keep() {
+                return this.$store.state.activeKeep
             },
             vaults(){
                 return this.$store.state.vaults

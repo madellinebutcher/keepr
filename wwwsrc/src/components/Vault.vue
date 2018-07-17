@@ -1,16 +1,12 @@
 <template>
     <div class="Vault container-fluid">
         <div class="row d-flex">
-            <div class="col-12 justify-content-between">
-                <button @click="logout" v-if="user">Logout</button>
-                <button @click="toHome">Back to home</button>
-            </div>
             <div class="col-12 justify-content-center">
-                <h1 class="vault-title">{{vault.name}}</h1>
-                
+                <h1>{{vault.name}}</h1>
+                <h3>{{vault.description}}</h3>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div v-for="keep in keeps[vault._id]" class="keep col-3 m-1">
                 <h2 class="keep-title">{{keep.name}}</h2>
                 <div class="row justify-content-center">
@@ -19,52 +15,37 @@
                 </div>
                 
             </div>
-        </div>
+        </div> -->
     </div>
 
 </template>
 
 <script>
     import router from '../router'
-    import keep from './Keep'
+    // import keep from './Keep'
     export default {
         name: 'Vault',
         components: {
-            keep
+            // keep
         },
         data() {
             return {
-                keep: {
-                    name: '',
-                    parentId: ''
-                }
+                // vault:{}
             }
         },
         mounted() {
-            this.$store.dispatch('fetchKeeps', this.vault._id)
+            // this.$store.dispatch('fetchKeeps', this.vault.id)
         },
         computed: {
-            user() {
-                return this.$store.state.user
+            keep() {
+                return this.$store.state.activeKeep
             },
-            vault() {
-                return this.$store.state.vault
-            },
-            keeps() {
-                return this.$store.state.keeps
-            },
-            // taskList() {
-            //     return this.$store.state.taskList
-            // }
+            vault(){
+                return this.$store.state.activeVault
+            }
         },
         methods: {
-            toHome() {
-                router.push({ name: 'Home' })
-            },
-            logout() {
-                this.$store.dispatch('logout')
-                router.push({ name: 'Login' })
-            }
+           
             // createList() {
             //     this.list.parentId = this.board._id
             //     this.$store.dispatch('createList', this.list)

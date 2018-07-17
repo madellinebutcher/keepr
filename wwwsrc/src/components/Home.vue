@@ -3,9 +3,9 @@
 
     <div class="row d-flex flex-wrap">
       <div class="col">
-        <button @click="logout" v-if="user">Logout</button>
         <hr>
         <h1>Hello {{user.username}}</h1>
+        <button @click="logout" v-if="user">Logout</button>
         <hr>
         <form @submit.prevent="createVault">
           <input type="text" name="title" v-model="vault.name" placeholder="Vault Name">
@@ -14,6 +14,7 @@
         </form>
       </div>
     </div>
+    <br>
     <div class="row d-flex flex-wrap">
       <div class="col">
         <form @submit.prevent="createKeep">
@@ -24,8 +25,10 @@
         </form>
       </div>
     </div>
+    <br>
     <div class="row d-flex flex-wrap">
-      <div class="col">
+      <div class="col-12 d-flex justify-content-between flex-wrap">
+        <h3>Your Vaults:</h3>
         <div v-for="vault in vaults" class="vaults">
           <button @click="vaultSection(vault)">{{vault.name}}</button>
           <button @click="deleteVault(vault)">Delete Vault</button>
@@ -39,11 +42,11 @@
           <img :src="keep.img" alt="">
           <h3 class="card-text">{{keep.description}}</h3>
           <h3 class="card-text">Views: {{keep.views}} Keeps:{{keep.keeps}}</h3>
-          <router-link :to="{ name: 'Keep', params: { id: keep.id }}">
+          <!-- <router-link :to="{ name: 'Keep', params: { id: keep.id }}"> -->
             <button @click="viewedKeep(keep)">View Pokemon</button>
 
-          </router-link>
-          <button @click="saveKeep(keep)">Save Pokemon</button>
+          <!-- </router-link> -->
+          <!-- <button @click="saveKeep(keep)">Save Pokemon</button> -->
         </div>
       </div>
     </div>
@@ -93,12 +96,11 @@
         this.$store.dispatch('createVault', this.vault)
       },
       vaultSection(vault) {
-        this.$store.commit('setVault', vault)
+        this.$store.dispatch('setActiveVault', vault)
         router.push({ name: 'Vault' })
       },
       logout() {
         this.$store.dispatch('logout')
-        router.push({ name: 'Login' })
       },
       deleteVault(vault) {
         this.$store.dispatch('deleteVault', vault)
@@ -109,7 +111,7 @@
       viewedKeep(keep) {
         keep.views++
         this.$store.dispatch('editKeep', keep)
-        router.push({ name: 'Keep/:id' })
+        router.push({ name: 'Keep' })
       }
     }
   }

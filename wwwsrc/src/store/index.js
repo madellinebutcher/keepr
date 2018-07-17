@@ -39,8 +39,9 @@ export default new vuex.Store({
   state: {
     user: {},
     vaults: [],
-    vault: {},
+    activeVault: {},
     activeKeeps: [],
+    activeKeep: {}
     
     // tasks: [],
     // taskList: {},
@@ -53,19 +54,23 @@ export default new vuex.Store({
     deleteUser(state) {
       state.user = {}
       state.vaults = []
-      state.vault = {}
+      state.activeVault = {}
       state.activeKeeps = []
+      state.activeKeep = {}
       // state.taskList = {}
       // state.comments={}
     },
     setVaults(state, vaults) {
       state.vaults = vaults
     },
-    setVault(state, vault) {
-      state.vault = vault
+    setActiveVault(state, vault) {
+      state.activeVault = vault
     },
     setKeeps(state, keeps) {
       state.activeKeeps = keeps
+    },
+    setActiveKeep(state, keep){
+      state.activeKeep = keep
     }
 
   },
@@ -149,6 +154,9 @@ export default new vuex.Store({
           console.log(err)
         })
     },
+    setActiveVault({commit, dispatch, state}, vault) {
+      commit ('setActiveVault', vault)
+    },
 
 
     //////// KEEPS ///////
@@ -198,9 +206,21 @@ export default new vuex.Store({
     editKeep({ commit, dispatch }, keep) {
       api.put('keep/' + keep.id, keep)
         .then(res => {
+          commit('setActiveKeep', keep)
           dispatch('fetchKeeps', keep)
         })
-    }
+    },
+    
+    /////vaultKeep/////
+    createVaultKeep({ commit, dispatch, state }, keep) {
+      api.post('keep', keep)
+        .then(res => {
+          dispatch('fetchKeeps', keep.parentId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
 
   }
 })
