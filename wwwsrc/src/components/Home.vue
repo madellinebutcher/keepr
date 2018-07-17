@@ -1,9 +1,6 @@
 <template>
   <div class="home container-fluid">
-    <router-link :to="{ name: 'Keep', params: { id: vault.id }}">
-      <h2>{{vault.name}}</h2>
-      <h4>{{vault.description}}</h4>
-    </router-link>
+
     <div class="row d-flex flex-wrap">
       <div class="col">
         <button @click="logout" v-if="user">Logout</button>
@@ -42,7 +39,10 @@
           <img :src="keep.img" alt="">
           <h3 class="card-text">{{keep.description}}</h3>
           <h3 class="card-text">Views: {{keep.views}} Keeps:{{keep.keeps}}</h3>
-          <button @click="viewedKeep(keep)">View Pokemon</button>
+          <router-link :to="{ name: 'Keep', params: { id: keep.id }}">
+            <button @click="viewedKeep(keep)">View Pokemon</button>
+
+          </router-link>
           <button @click="saveKeep(keep)">Save Pokemon</button>
         </div>
       </div>
@@ -109,7 +109,7 @@
       viewedKeep(keep) {
         keep.views++
         this.$store.dispatch('editKeep', keep)
-        router.push({ name: 'Keep' })
+        router.push({ name: 'Keep/:id' })
       }
     }
   }
