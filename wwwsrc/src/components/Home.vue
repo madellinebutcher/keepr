@@ -1,5 +1,9 @@
 <template>
   <div class="home container-fluid">
+    <router-link :to="{ name: 'Keep', params: { id: vault.id }}">
+      <h2>{{vault.name}}</h2>
+      <h4>{{vault.description}}</h4>
+    </router-link>
     <div class="row d-flex flex-wrap">
       <div class="col">
         <button @click="logout" v-if="user">Logout</button>
@@ -113,7 +117,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  img{
+  img {
     max-height: 25vh;
     max-width: 25vw;
   }
