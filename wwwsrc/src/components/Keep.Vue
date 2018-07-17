@@ -13,7 +13,7 @@
                             <option disabled value=''>Select a Vault</option>
                             <option v-for="vault in vaults" :key="vault.id" :value="vault">{{vault.name}}</option>
                         </select>
-                        <button v-if="vault.name" class="btn btn-primary" @click="createVaultKeep">Save Pokemon</button>
+                        <button type="button" v-if="vault.name" class="btn btn-primary" @click="createVaultKeep">Save Pokemon</button>
                     </form>
                 </div>
             </div>
@@ -65,18 +65,23 @@
             },
             vaults(){
                 return this.$store.state.vaults
+            },
+            user() {
+                return this.$store.state.user
             }
         },
         methods: {
-            deleteKeep(keep) {
-                this.$store.dispatch('deleteKeep', keep)
-            },
-            createKeep() {
+            // deleteKeep(keep) {
+            //     this.$store.dispatch('deleteKeep', keep)
+            // },
+            createVaultKeep() {
+                var vaultKeep = {}
                 if (!this.vault.id) {
                     this.error("Please select a vault")
                 }
-                this.newKeep.vaultId = this.vault.id
-                this.$store.dispatch("createKeep", this.newKeep)
+                vaultKeep.keepId = this.keep.id
+                vaultKeep.vaultId = this.vault.id
+                this.$store.dispatch("createVaultKeep", vaultKeep)
             },
             
         }

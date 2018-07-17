@@ -41,8 +41,11 @@ export default new vuex.Store({
     vaults: [],
     activeVault: {},
     activeKeeps: [],
-    activeKeep: {}
-    
+    activeKeep: {},
+    vaultKeeps: [],
+    activeVaultKeep: {}
+
+
     // tasks: [],
     // taskList: {},
     // comments: {}
@@ -57,8 +60,8 @@ export default new vuex.Store({
       state.activeVault = {}
       state.activeKeeps = []
       state.activeKeep = {}
-      // state.taskList = {}
-      // state.comments={}
+      state.vaultKeeps = [],
+      state.activeVaultKeep = {}
     },
     setVaults(state, vaults) {
       state.vaults = vaults
@@ -69,8 +72,14 @@ export default new vuex.Store({
     setKeeps(state, keeps) {
       state.activeKeeps = keeps
     },
-    setActiveKeep(state, keep){
+    setActiveKeep(state, keep) {
       state.activeKeep = keep
+    },
+    setVaultKeeps(state, vaultKeeps) {
+      state.vaultKeeps = vaultKeeps
+    },
+    setActiveVaultKeep(state, vaultKeep) {
+      state.activeVaultKeep = vaultKeep
     }
 
   },
@@ -154,8 +163,8 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    setActiveVault({commit, dispatch, state}, vault) {
-      commit ('setActiveVault', vault)
+    setActiveVault({ commit, dispatch, state }, vault) {
+      commit('setActiveVault', vault)
     },
 
 
@@ -210,12 +219,21 @@ export default new vuex.Store({
           dispatch('fetchKeeps', keep)
         })
     },
-    
+
     /////vaultKeep/////
-    createVaultKeep({ commit, dispatch, state }, keep) {
-      api.post('keep', keep)
+    fetchVaultKeeps({ commit, dispatch }, id) {
+      api.get('vaultKeep/author/' + id)
         .then(res => {
-          dispatch('fetchKeeps', keep.parentId)
+          commit('setVaultKeeps', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    createVaultKeep({ commit, dispatch, state }, vaultKeep) {
+      api.post('vaultkeep/', vaultKeep)
+        .then(res => {
+          dispatch('fetchVaultKeeps', vaultKeep.parentId)
         })
         .catch(err => {
           console.log(err)

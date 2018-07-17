@@ -6,6 +6,7 @@
                 <h3>{{vault.description}}</h3>
             </div>
         </div>
+        <keep></keep>
         <!-- <div class="row">
             <div v-for="keep in keeps[vault._id]" class="keep col-3 m-1">
                 <h2 class="keep-title">{{keep.name}}</h2>
@@ -22,11 +23,11 @@
 
 <script>
     import router from '../router'
-    // import keep from './Keep'
+    import keep from './Keep'
     export default {
         name: 'Vault',
         components: {
-            // keep
+            keep
         },
         data() {
             return {
@@ -34,7 +35,7 @@
             }
         },
         mounted() {
-            // this.$store.dispatch('fetchKeeps', this.vault.id)
+            this.$store.dispatch('fetchVaultKeeps', this.vault.id)
         },
         computed: {
             keep() {
