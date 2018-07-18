@@ -15,6 +15,7 @@
                         </select>
                         <button type="button" v-if="vault.name" class="btn btn-primary" @click="createVaultKeep">Save Pokemon</button>
                     </form>
+                    <button type="button" class="btn btn-danger" @click="createVaultKeep">Public</button>
                 </div>
             </div>
         </div>

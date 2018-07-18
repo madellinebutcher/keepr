@@ -6,17 +6,15 @@
                 <h3>{{vault.description}}</h3>
             </div>
         </div>
-        <keep></keep>
-        <!-- <div class="row">
-            <div v-for="keep in keeps[vault._id]" class="keep col-3 m-1">
-                <h2 class="keep-title">{{keep.name}}</h2>
-                <div class="row justify-content-center">
-                    
-                    <button @click="deleteKeep(keep)">Delete Keep?</button>
-                </div>
-                
-            </div>
-        </div> -->
+        <!-- <keep></keep> -->
+        <div v-for="keep in vaultKeeps" v-bind:key="vaultKeep.id">
+            <img :src="keep.img" alt="">
+
+            <p>{{keep.name}}</p>
+            <p>{{keep.description}}</p>
+            <p>Views: {{keep.view}}</p>
+            <p>Keeps: {{keep.keep}}</p>
+        </div>
     </div>
 
 </template>
@@ -27,26 +25,30 @@
     export default {
         name: 'Vault',
         components: {
-            keep
+            // keep
         },
         data() {
             return {
-                // vault:{}
+               
             }
         },
         mounted() {
-            this.$store.dispatch('fetchVaultKeeps', this.vault.id)
+            // this.$store.dispatch('fetchVaultKeeps', this.vaultKeep.id)
         },
         computed: {
-            keep() {
-                return this.$store.state.activeKeep
+            vaultKeeps() {
+                return this.$store.state.vaultKeeps
             },
-            vault(){
+            
+            vault() {
                 return this.$store.state.activeVault
+            },
+            keep(){
+                return this.$store.state.activeKeep
             }
         },
         methods: {
-           
+
             // createList() {
             //     this.list.parentId = this.board._id
             //     this.$store.dispatch('createList', this.list)
@@ -65,5 +67,4 @@
 </script>
 
 <style>
-
 </style>
