@@ -5,13 +5,12 @@
       <div class="col">
         <hr>
         <h1>Hello {{user.username}}</h1>
-        <button @click="logout" v-if="user">Logout</button>
         <hr>
-        <form @submit.prevent="createVault">
+        <!-- <form @submit.prevent="createVault">
           <input type="text" name="title" v-model="vault.name" placeholder="Vault Name">
           <input type="text" name="description" v-model="vault.description" placeholder="Description">
           <button type="submit">Create Vault</button>
-        </form>
+        </form> -->
       </div>
     </div>
     <br>
@@ -21,12 +20,17 @@
           <input type="text" name="title" v-model="keep.name" placeholder="Keep Name">
           <input type="text" name="description" v-model="keep.description" placeholder="Description">
           <input type="url" name="img" v-model="keep.img" placeholder="Image">
+          <select v-model="keep.public">
+            <option disabled value="">Please select one</option>
+            <option value="1">Public</option>
+            <option value="0">Private</option>
+          </select>
           <button type="submit">Add Pokemon</button>
         </form>
       </div>
     </div>
     <br>
-    <div class="row d-flex flex-wrap">
+    <!-- <div class="row d-flex flex-wrap">
       <div class="col-12 d-flex justify-content-between flex-wrap">
         <h3>Your Vaults:</h3>
         <div v-for="vault in vaults" class="vaults">
@@ -34,7 +38,7 @@
           <button @click="deleteVault(vault)">Delete Vault</button>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row ">
       <div class="col-12 d-flex justify-content-between flex-wrap">
         <div v-for="keep in keeps" :key="keep.id" class="keep card text-center">
@@ -43,7 +47,7 @@
           <h3 class="card-text">{{keep.description}}</h3>
           <h3 class="card-text">Views: {{keep.views}} Keeps:{{keep.keeps}}</h3>
           <!-- <router-link :to="{ name: 'Keep', params: { id: keep.id }}"> -->
-            <button @click="viewedKeep(keep)">View Pokemon</button>
+          <button @click="viewedKeep(keep)">View Pokemon</button>
 
           <!-- </router-link> -->
           <!-- <button @click="saveKeep(keep)">Save Pokemon</button> -->

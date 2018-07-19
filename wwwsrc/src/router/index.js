@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Vault from '@/components/Vault'
 import Keep from '@/components/Keep'
+import UserProfile from '@/components/UserProfile'
 
 Vue.use(Router)
 
@@ -20,6 +21,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/UserProfile',
+      name: 'UserProfile',
+      component: UserProfile
     },
     {
       path: '/Register',

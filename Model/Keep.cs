@@ -10,7 +10,7 @@ public string Img { get ;set; }
 
 public int Views { get; set; }
 
-public int Keeps { get; set; }
+public int Keeps { get; set; } = 0;
 
 public int Public { get; set; }
 

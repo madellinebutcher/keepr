@@ -14,13 +14,22 @@ namespace keepr.Repositories
     // Create Vault
     public VaultKeep CreateVaultKeep(VaultKeep newVaultKeep)
     {
-      int id = _db.ExecuteScalar<int>(@"
+        var k = _db.Execute(@"
+                UPDATE keeps SET
+                keeps = keeps + 1
+                WHERE id = @KeepId;",
+                newVaultKeep);
+        if (k > 0)
+        {
+        int id = _db.ExecuteScalar<int>(@"
                 INSERT INTO vaultkeeps (vaultId, keepId, authorId)
                 VALUES (@VaultId, @KeepId, @AuthorId);
                 SELECT LAST_INSERT_ID();
             ", newVaultKeep);
       newVaultKeep.Id = id;
       return newVaultKeep;
+      }
+        return null;
     }
     // // GetAll Vault
     // public IEnumerable<Vault> GetAll()
@@ -65,16 +74,21 @@ namespace keepr.Repositories
       return null;
     }
     // Delete
-    public bool DeleteVaultKeep(int id)
+    public bool DeleteVaultKeep(int id, int keepId)
     {
       var i = _db.Execute(@"
       DELETE FROM vaultkeeps
-      WHERE id = @id
+      WHERE id = @Id
       LIMIT 1;
       ", new { id });
       if (i > 0)
       {
-        return true;
+        var num = _db.Execute(@"
+            UPDATE keeps SET
+                keeps = keeps -1
+                WHERE id = @KeepId;",
+                new {keepId});
+                return num > 0;
       }
       return false;
     }

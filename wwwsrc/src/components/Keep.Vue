@@ -13,11 +13,11 @@
                             <option disabled value=''>Select a Vault</option>
                             <option v-for="vault in vaults" :key="vault.id" :value="vault">{{vault.name}}</option>
                         </select>
-                        <select v-model="keep.public">
+                        <!-- <select v-model="keep.public" >
                                 <option disabled value="">Please select one</option>
                                 <option value="1">Public</option>
                                 <option value="0">Private</option>
-                        </select>
+                        </select> -->
                         <button type="button" v-if="vault.name" class="btn btn-primary" @click="createVaultKeep">Save Pokemon</button>
                     </form>
                 </div>

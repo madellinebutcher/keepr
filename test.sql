@@ -75,7 +75,7 @@
 
 
 
--- drop table if exists keeps;
+-- drop table if exists vaults;
 
 -- CREATE TABLE vaultkeeps (
 --     id int NOT NULL AUTO_INCREMENT,
