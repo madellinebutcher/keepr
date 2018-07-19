@@ -32,16 +32,21 @@ namespace keepr.Controllers
     // {
     //   return _db.GetAll();
     // }
+    [HttpGet("vault/{id}")]
+    public IEnumerable<Keep> GetByVaultId(int id)
+    {
+      return _db.GetbyVaultId(id);
+    }
     //get post by id
     [HttpGet("{id}")]
-    public IEnumerable<VaultKeep> GetById(int id)
+    public IEnumerable<Keep> GetById(int id)
     {
       return _db.GetbyVaultKeepId(id);
     }
     //get post by author
     [HttpGet("author/{id}")]
     
-    public IEnumerable<VaultKeep> GetByAuthorId(string id)
+    public IEnumerable<Keep> GetByAuthorId(string id)
     {
       return _db.GetbyAuthorId(id);
     }

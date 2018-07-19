@@ -7,7 +7,7 @@
             </div>
         </div>
         <!-- <keep></keep> -->
-        <div v-for="keep in vaultKeeps" v-bind:key="vaultKeep.id">
+        <div v-for="keep in vaultKeeps" :key="keep.id">
             <img :src="keep.img" alt="">
 
             <p>{{keep.name}}</p>
@@ -33,7 +33,7 @@
             }
         },
         mounted() {
-            // this.$store.dispatch('fetchVaultKeeps', this.vaultKeep.id)
+            this.$store.dispatch('fetchVaultKeepsById', this.vault)
         },
         computed: {
             vaultKeeps() {

@@ -28,14 +28,25 @@ namespace keepr.Repositories
     //   return _db.Query<Vault>("SELECT * FROM vaults;");
     // }
     // GetbyAuthor
-    public IEnumerable<VaultKeep> GetbyAuthorId(string id)
+    public IEnumerable<Keep> GetbyAuthorId(string id)
     {
-      return _db.Query<VaultKeep>("SELECT * FROM vaultkeeps WHERE authorId = @id;", new { id });
+      return _db.Query<Keep>(@"SELECT * FROM vaultkeeps
+                    INNER JOIN keeps on keeps.id = vaultkeeps.keepId 
+                    WHERE vaultkeeps.authorId = @id;", new { id });
     }
     // GetbyId
-    public IEnumerable<VaultKeep> GetbyVaultKeepId(int id)
+    public IEnumerable<Keep> GetbyVaultKeepId(int id)
     {
-      return _db.Query<VaultKeep>("SELECT * FROM vaultkeeps WHERE id = @id;", new { id });
+      return _db.Query<Keep>(@"SELECT * FROM vaultkeeps 
+                    INNER JOIN keeps on keeps.id = vaultkeeps.keepId
+                    WHERE vaultkeeps.id = @id;", new { id });
+    }
+
+     public IEnumerable<Keep> GetbyVaultId(int id)
+    {
+      return _db.Query<Keep>(@"SELECT * FROM vaultkeeps 
+                    INNER JOIN keeps on keeps.id = vaultkeeps.keepId
+                    WHERE vaultkeeps.vaultId = @id;", new { id });
     }
     // Edit
     public VaultKeep EditVaultKeep(int id, VaultKeep vaultKeep)

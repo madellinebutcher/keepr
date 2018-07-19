@@ -221,8 +221,8 @@ export default new vuex.Store({
     },
 
     /////vaultKeep/////
-    fetchVaultKeeps({ commit, dispatch }, id) {
-      api.get('vaultKeep/author/' + id)
+    fetchVaultKeeps({ commit, dispatch }, user) {
+      api.get('vaultkeep/author/' + user.id)
         .then(res => {
           commit('setVaultKeeps', res.data)
         })
@@ -239,6 +239,15 @@ export default new vuex.Store({
           console.log(err)
         })
     },
+
+    fetchVaultKeepsById({commit, dispatch, state}, vaultKeep){
+      debugger
+      api.get('vaultkeep/vault'+ vaultKeep.id )
+       .then(res => {
+
+         commit('setVaultKeeps', res.data )
+       })
+    }
 
   }
 })
