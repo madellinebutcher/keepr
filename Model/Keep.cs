@@ -12,7 +12,7 @@ public int Views { get; set; }
 
 public int Keeps { get; set; }
 
-public int Privatepublic { get; set; }
+public int Public { get; set; }
 
 public string AuthorId { get; set; }
 

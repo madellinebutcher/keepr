@@ -7,12 +7,17 @@
             </div>
         </div>
         <!-- <keep></keep> -->
-        <div v-for="keep in vaultKeeps" :key="keep.id">
-            <img :src="keep.img" alt="">
-            <p>{{keep.name}}</p>
-            <p>{{keep.description}}</p>
-            <p>Views: {{keep.views}}</p>
-            <p>Keeps: {{keep.keeps}}</p>
+        <div class="row ">
+            <div class="col-12 d-flex justify-content-between flex-wrap">
+                <div v-for="keep in vaultKeeps" :key="keep.id" class="card text-center">
+                    <img :src="keep.img" alt="">
+                    <p>{{keep.name}}</p>
+                    <p>{{keep.description}}</p>
+                    <p>Views: {{keep.views}}</p>
+                    <p>Keeps: {{keep.keeps}}</p>
+                    
+                </div>
+            </div>
         </div>
     </div>
 
@@ -28,7 +33,7 @@
         },
         data() {
             return {
-               keep:{}
+                keep: {}
             }
         },
         mounted() {
@@ -38,11 +43,11 @@
             vaultKeeps() {
                 return this.$store.state.vaultKeeps
             },
-            
+
             vault() {
                 return this.$store.state.activeVault
             },
-            keep(){
+            keep() {
                 return this.$store.state.activeKeep
             }
         },
@@ -66,8 +71,8 @@
 </script>
 
 <style scoped>
-img{
-    max-height: 25vh;
-    max-width: 25vw;
-  }
+    img {
+        max-height: 40vh;
+        max-width: 30vw;
+    }
 </style>

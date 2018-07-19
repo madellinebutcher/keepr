@@ -120,7 +120,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   img {
-    max-height: 25vh;
-    max-width: 25vw;
+    max-height: 40vh;
+    max-width: 30vw;
   }
 </style>
