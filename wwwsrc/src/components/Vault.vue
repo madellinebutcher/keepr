@@ -9,11 +9,10 @@
         <!-- <keep></keep> -->
         <div v-for="keep in vaultKeeps" :key="keep.id">
             <img :src="keep.img" alt="">
-
             <p>{{keep.name}}</p>
             <p>{{keep.description}}</p>
-            <p>Views: {{keep.view}}</p>
-            <p>Keeps: {{keep.keep}}</p>
+            <p>Views: {{keep.views}}</p>
+            <p>Keeps: {{keep.keeps}}</p>
         </div>
     </div>
 
@@ -21,7 +20,7 @@
 
 <script>
     import router from '../router'
-    import keep from './Keep'
+    // import keep from './Keep'
     export default {
         name: 'Vault',
         components: {
@@ -29,7 +28,7 @@
         },
         data() {
             return {
-               
+               keep:{}
             }
         },
         mounted() {
@@ -66,5 +65,9 @@
     }
 </script>
 
-<style>
+<style scoped>
+img{
+    max-height: 25vh;
+    max-width: 25vw;
+  }
 </style>
