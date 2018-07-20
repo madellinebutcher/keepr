@@ -63,6 +63,9 @@ export default new vuex.Store({
       state.vaultKeeps = [],
       state.activeVaultKeep = {}
     },
+    deleteVaultKeep(state, vaultKeep){
+      state.activeVaultKeep = vaultKeep
+    },
     setVaults(state, vaults) {
       state.vaults = vaults
     },
@@ -247,6 +250,16 @@ export default new vuex.Store({
 
          commit('setVaultKeeps', res.data )
        })
+    },
+    deleteVaultKeep({ commit, dispatch, state }, vaultKeep) {
+      
+      api.delete('vaultKeep/' + vaultKeep.id)
+        .then(res => {
+          commit('deleteVaultKeep', vaultKeep.id)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
   }

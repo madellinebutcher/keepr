@@ -61,10 +61,10 @@ namespace keepr.Controllers
     //delete keep
     [HttpDelete("{id}")]
         [Authorize]
-        public string DeleteVaultKeep(int id, int keepId)
+        public string DeleteVaultKeep(int id, int vaultId)
         {
             var user = HttpContext.User.Identity.Name;
-            bool delete = _db.DeleteVaultKeep(id, keepId);
+            bool delete = _db.DeleteVaultKeep(id, vaultId);
             if (delete)
             {
                 return "This Has Been Successfully Deleted!";

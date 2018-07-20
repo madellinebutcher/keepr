@@ -78,7 +78,7 @@ namespace keepr.Repositories
     {
       var i = _db.Execute(@"
       DELETE FROM vaultkeeps
-      WHERE id = @Id
+      WHERE id = @id
       LIMIT 1;
       ", new { id });
       if (i > 0)
@@ -86,8 +86,8 @@ namespace keepr.Repositories
         var num = _db.Execute(@"
             UPDATE keeps SET
                 keeps = keeps -1
-                WHERE id = @KeepId;",
-                new {keepId});
+                WHERE id = @Id;",
+                new {id});
                 return num > 0;
       }
       return false;

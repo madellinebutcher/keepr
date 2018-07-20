@@ -15,6 +15,7 @@
                     <p>{{keep.description}}</p>
                     <p>Views: {{keep.views}}</p>
                     <p>Keeps: {{keep.keeps}}</p>
+                    <button type="button" v-if="keep.id" class="btn btn-danger" @click="deleteVaultKeep(keep)">Delete Pokemon</button>
                     
                 </div>
             </div>
@@ -33,7 +34,7 @@
         },
         data() {
             return {
-                keep: {}
+                // keep: {}
             }
         },
         mounted() {
@@ -53,19 +54,10 @@
         },
         methods: {
 
-            // createList() {
-            //     this.list.parentId = this.board._id
-            //     this.$store.dispatch('createList', this.list)
-            //     this.list = { title: '', parentId: '' }
-            // },
-            // deleteList(list) {
-            //     this.$store.dispatch('deleteList', list)
-            // },
-            // createTask(list) {
-            //     this.task.parentId = list._id
-            //     this.$store.dispatch('createTask', this.task)
-            //     this.task = { body: '', parentId: '' }
-            // }
+            deleteVaultKeep(keep){
+                
+                this.$store.dispatch('deleteVaultKeep', keep)
+            }
         }
     }
 </script>
