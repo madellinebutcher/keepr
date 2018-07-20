@@ -86,7 +86,7 @@ namespace keepr.Repositories
         var num = _db.Execute(@"
             UPDATE keeps SET
                 keeps = keeps -1
-                WHERE id = @Id;",
+                WHERE id = @KeepId;",
                 new {id});
                 return num > 0;
       }
